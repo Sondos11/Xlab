@@ -1,0 +1,158 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css'],
+})
+export class SignUpComponent implements OnInit {
+  registrationForm: FormGroup = new FormGroup({});
+  name: string = '';
+  mobile: string = '';
+  email: string = '';
+  image: string = '';
+  password: string = '';
+  confirmPassword: string = '';
+
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
+  ngOnInit(): void {
+    this.registrationForm = this.formBuilder.group({
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          Validators.pattern('^[a-zA-Z ]*$'),
+        ],
+      ],
+      mobile: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(11),
+          Validators.pattern('^[0-9]*$'),
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      image: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
+
+  register() {
+    let bodyData = {
+      name: this.name,
+      mobile: this.mobile,
+      email: this.email,
+      image: this.image,
+      password: this.password,
+      confirmPassword: this.confirmPassword,
+    };
+    this.http
+      .post('http://localhost:8086/user/create', bodyData, {
+        responseType: 'text',
+      })
+      .subscribe((resultData: any) => {
+        console.log(resultData);
+        alert('Registered Successfully');
+
+        this.name = '';
+        this.mobile = '';
+        this.email = '';
+        this.image = '';
+        this.password = '';
+        this.confirmPassword = '';
+      });
+  }
+}
+******************************************************************************
+
+<div class="wrapper">
+  <div class="image-holder">
+    <img src="images/registration-form-8.jpg" alt="" />
+  </div>
+  <div class="form-inner">
+    <form [formGroup]="registrationForm" (ngSubmit)="register()">
+      <div class="form-header">
+        <h3>Sign up</h3>
+        <img src="images/sign-up.png" alt="" class="sign-up-icon" />
+      </div>
+      <div class="form-group">
+        <label for="">Full Name:</label>
+        <input
+          type="text"
+          [(ngModel)]="name"
+          [ngModelOptions]="{ standalone: true }"
+          class="form-control"
+          data-validation="length alphabet"
+          data-validation-length="3-20"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="">Mobile Number:</label>
+        <input
+          type="text"
+          [(ngModel)]="mobile"
+          [ngModelOptions]="{ standalone: true }"
+          class="form-control"
+          data-validation="length numeric"
+          data-validation-length="5-11"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="">E-mail:</label>
+        <input
+          type="text"
+          [(ngModel)]="email"
+          [ngModelOptions]="{ standalone: true }"
+          class="form-control"
+          data-validation="email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="fileInput" class="custom-file-upload">
+          Upload Image:
+        </label>
+        <input
+          type="file"
+          [(ngModel)]="image"
+          [ngModelOptions]="{ standalone: true }"
+          id="fileInput"
+          accept="image/*"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="">Password:</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          [ngModelOptions]="{ standalone: true }"
+          class="form-control"
+          data-validation="length"
+          data-validation-length="min8"
+        />
+      </div>
+      <div class="form-group">
+        <label for="">Confirm Password:</label>
+        <input
+          type="password"
+          [(ngModel)]="confirmPassword"
+          [ngModelOptions]="{ standalone: true }"
+          class="form-control"
+          data-validation="length"
+          data-validation-length="min8"
+        />
+      </div>
+      <button type="submit" (click)="register()">SIGN UP</button>
+    </form>
+  </div>
+</div>
