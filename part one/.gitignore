@@ -2,21 +2,6 @@
 backend/node_modules/
 backend/package-lock.json
 package-lock.json
-.env
-
-backend/uploads
-
-
-# MongoDB related files
-backend/*.log
-backend/*.journal
-backend/mongod.lock
-backend/db/
-backend/mongodump/
-backend/mongorestore/
-backend/mongoexport
-backend/mongoimport
-
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 

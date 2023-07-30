@@ -1,4 +1,5 @@
 var userModel = require("./userModel");
+const path = require("path");
 
 var createUserControllerFn = async (req, res) => {
   try {
@@ -8,6 +9,7 @@ var createUserControllerFn = async (req, res) => {
     userModelData.mobile = body.mobile;
     userModelData.email = body.email;
     userModelData.image = body.image;
+ 
     userModelData.password = body.password;
 
     await userModelData.save();
