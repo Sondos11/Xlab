@@ -47,10 +47,10 @@ The following technologies were used in the development :
 
 ## DEMO
 
-🎬
+
 You can see the demo here:
 <a href="https://youtu.be/mAgIsOJyRxA">
-</a>
+🎬</a>
 
 # Xlab part two
 
