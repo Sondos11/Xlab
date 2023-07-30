@@ -50,8 +50,6 @@ The following technologies were used in the development :
 🎬
 You can see the demo here:
 <a href="https://youtu.be/mAgIsOJyRxA">
-
-
 </a>
 
 # Xlab part two
